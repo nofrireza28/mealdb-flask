@@ -129,18 +129,6 @@ Base URL: `https://www.themealdb.com/api/json/v1/1`
 
 ---
 
-## 📸 Screenshot
-
-Lihat file `docs/Dokumentasi.pdf` untuk dokumentasi lengkap beserta screenshot setiap halaman.
-
----
-
-## 👨‍🎓 Pembuat
-
-**Nofri Reza** — Mahasiswa Sistem Informasi, ITTS
-UTS Pemrograman Back End — 2026
-
----
 
 ## 📜 Lisensi
 
