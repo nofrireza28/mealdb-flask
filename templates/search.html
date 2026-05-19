@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% from "_macros.html" import meal_grid, sort_control %}
+
+{% block title %}Pencarian: {{ query }}{% endblock %}
+
+{% block content %}
+<section class="container section">
+    <nav class="breadcrumb">
+        <a href="{{ url_for('index') }}">Beranda</a> /
+        <strong>Pencarian</strong>
+    </nav>
+
+    <h1 class="page-title">Hasil Pencarian</h1>
+
+    <form action="{{ url_for('search') }}" method="get" class="search-form-big">
+        <input type="search" name="q" placeholder="Cari resep berdasarkan nama..."
+               value="{{ query }}" autofocus required>
+        <button type="submit" class="btn btn-primary">Cari</button>
+    </form>
+
+    {% if query %}
+        <div class="section-head">
+            <p class="section-subtitle">
+                {% if total > 0 %}
+                    Menemukan <strong>{{ total }}</strong> resep untuk kata kunci <em>"{{ query }}"</em>
+                {% else %}
+                    Tidak ada resep yang cocok dengan <em>"{{ query }}"</em>
+                {% endif %}
+            </p>
+            {% if total > 0 %}
+                {{ sort_control(sort_order, {'q': query}) }}
+            {% endif %}
+        </div>
+        {{ meal_grid(meals) }}
+    {% else %}
+        <div class="empty-state">
+            <p>💡 Coba kata kunci seperti: <em>chicken</em>, <em>beef</em>, <em>pasta</em>, atau <em>fish</em>.</p>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Negara Asal Masakan{% endblock %}
+
+{% block content %}
+<section class="container section">
+    <nav class="breadcrumb">
+        <a href="{{ url_for('index') }}">Beranda</a> /
+        <strong>Negara Asal</strong>
+    </nav>
+
+    <h1 class="page-title">Jelajahi Berdasarkan Negara Asal</h1>
+    <p class="section-subtitle">Klik salah satu negara untuk melihat resep khasnya.</p>
+
+    <div class="area-grid">
+        {% for a in areas %}
+            <a href="{{ url_for('area', name=a) }}" class="area-chip">{{ a }}</a>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

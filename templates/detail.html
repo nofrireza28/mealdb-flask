@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}{{ meal.strMeal }}{% endblock %}
+
+{% block content %}
+<section class="container section">
+    <nav class="breadcrumb">
+        <a href="{{ url_for('index') }}">Beranda</a> /
+        <a href="{{ url_for('category', name=meal.strCategory) }}">{{ meal.strCategory }}</a> /
+        <strong>{{ meal.strMeal }}</strong>
+    </nav>
+
+    <article class="detail-wrapper">
+        <header class="detail-header">
+            <div class="detail-header-text">
+                <h1 class="detail-title">{{ meal.strMeal }}</h1>
+                <div class="detail-meta">
+                    <a href="{{ url_for('category', name=meal.strCategory) }}" class="badge badge-cat">
+                        {{ meal.strCategory }}
+                    </a>
+                    <a href="{{ url_for('area', name=meal.strArea) }}" class="badge badge-area">
+                        🌍 {{ meal.strArea }}
+                    </a>
+                    {% if meal.strTags %}
+                        {% for tag in meal.strTags.split(',') %}
+                            <span class="badge badge-tag">#{{ tag.strip() }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <img class="detail-image" src="{{ meal.strMealThumb }}" alt="{{ meal.strMeal }}">
+        </header>
+
+        <div class="detail-grid">
+            {# Sidebar: Bahan-bahan #}
+            <aside class="detail-sidebar">
+                <h2>🥕 Bahan-Bahan</h2>
+                <ul class="ingredient-list">
+                    {% for ing in ingredients %}
+                        <li>
+                            <span class="ing-measure">{{ ing.measure }}</span>
+                            <span class="ing-name">{{ ing.name }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                {% if meal.strSource %}
+                    <a href="{{ meal.strSource }}" target="_blank" rel="noopener" class="btn btn-outline">
+                        🔗 Sumber Resep Asli
+                    </a>
+                {% endif %}
+            </aside>
+
+            {# Main: Instruksi memasak #}
+            <div class="detail-main">
+                <h2>👨‍🍳 Cara Memasak</h2>
+                <div class="instructions">
+                    {% for paragraph in (meal.strInstructions or '').split('\r\n') %}
+                        {% if paragraph.strip() %}
+                            <p>{{ paragraph }}</p>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+                {% if meal.strYoutube %}
+                    <div class="video-section">
+                        <h3>🎬 Video Tutorial</h3>
+                        <a href="{{ meal.strYoutube }}" target="_blank" rel="noopener" class="btn btn-primary">
+                            ▶ Tonton di YouTube
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </article>
+</section>
+{% endblock %}

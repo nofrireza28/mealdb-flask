@@ -1,0 +1,51 @@
+{# Komponen kartu resep yang dipakai di banyak halaman #}
+{% macro meal_card(meal) %}
+<article class="meal-card">
+    <a href="{{ url_for('meal_detail', meal_id=meal.idMeal) }}" class="meal-card-link">
+        <div class="meal-card-image">
+            <img src="{{ meal.strMealThumb }}" alt="{{ meal.strMeal }}" loading="lazy">
+        </div>
+        <div class="meal-card-body">
+            <h3 class="meal-card-title">{{ meal.strMeal }}</h3>
+            {% if meal.strCategory %}
+                <span class="badge badge-cat">{{ meal.strCategory }}</span>
+            {% endif %}
+            {% if meal.strArea %}
+                <span class="badge badge-area">{{ meal.strArea }}</span>
+            {% endif %}
+            <p class="meal-card-cta">Lihat resep →</p>
+        </div>
+    </a>
+</article>
+{% endmacro %}
+
+{# Kontrol sorting #}
+{% macro sort_control(current_sort, base_args={}) %}
+<div class="sort-control">
+    <span>Urutkan:</span>
+    {% set asc_args = base_args.copy() %}
+    {% set _ = asc_args.update({'sort': 'asc'}) %}
+    {% set desc_args = base_args.copy() %}
+    {% set _ = desc_args.update({'sort': 'desc'}) %}
+
+    <a href="?{{ asc_args | urlencode }}"
+       class="sort-btn {% if current_sort == 'asc' %}active{% endif %}">A → Z</a>
+    <a href="?{{ desc_args | urlencode }}"
+       class="sort-btn {% if current_sort == 'desc' %}active{% endif %}">Z → A</a>
+</div>
+{% endmacro %}
+
+{# Grid daftar resep #}
+{% macro meal_grid(meals) %}
+{% if meals %}
+    <div class="meal-grid">
+        {% for m in meals %}
+            {{ meal_card(m) }}
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-state">
+        <p>🍽️ Tidak ada resep ditemukan.</p>
+    </div>
+{% endif %}
+{% endmacro %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% from "_macros.html" import meal_grid, sort_control %}
+
+{% block title %}Masakan {{ area }}{% endblock %}
+
+{% block content %}
+<section class="container section">
+    <nav class="breadcrumb">
+        <a href="{{ url_for('index') }}">Beranda</a> /
+        <a href="{{ url_for('areas') }}">Negara Asal</a> /
+        <strong>{{ area }}</strong>
+    </nav>
+
+    <div class="section-head">
+        <div>
+            <h1 class="page-title">Masakan dari <em>{{ area }}</em></h1>
+            <p class="section-subtitle">{{ total }} resep ditemukan</p>
+        </div>
+        {{ sort_control(sort_order) }}
+    </div>
+
+    {{ meal_grid(meals) }}
+</section>
+{% endblock %}

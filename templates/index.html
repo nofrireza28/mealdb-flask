@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% from "_macros.html" import meal_grid, sort_control %}
+
+{% block title %}Beranda{% endblock %}
+
+{% block content %}
+{# HERO SECTION dengan random meal sebagai featured #}
+{% if featured %}
+<section class="hero">
+    <div class="container hero-inner">
+        <div class="hero-text">
+            <p class="hero-eyebrow">✨ Resep pilihan hari ini</p>
+            <h1 class="hero-title">{{ featured.strMeal }}</h1>
+            <p class="hero-meta">
+                <span>{{ featured.strCategory }}</span> &middot;
+                <span>{{ featured.strArea }}</span>
+            </p>
+            <p class="hero-desc">
+                {{ (featured.strInstructions or '')[:180] }}{% if (featured.strInstructions or '')|length > 180 %}…{% endif %}
+            </p>
+            <a href="{{ url_for('meal_detail', meal_id=featured.idMeal) }}" class="btn btn-primary">
+                Lihat Resep Lengkap →
+            </a>
+        </div>
+        <div class="hero-image">
+            <img src="{{ featured.strMealThumb }}" alt="{{ featured.strMeal }}">
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{# Section utama: daftar meals #}
+<section class="container section">
+    <div class="section-head">
+        <div>
+            <h2 class="section-title">Resep dari Kategori <em>{{ category }}</em></h2>
+            <p class="section-subtitle">{{ total }} resep ditemukan</p>
+        </div>
+        {{ sort_control(sort_order) }}
+    </div>
+
+    {{ meal_grid(meals) }}
+</section>
+
+{# Section: kategori lain #}
+<section class="container section">
+    <h2 class="section-title">Jelajahi Kategori Lain</h2>
+    <div class="category-grid">
+        {% for cat in nav_categories %}
+        <a href="{{ url_for('category', name=cat.strCategory) }}" class="category-card">
+            <img src="{{ cat.strCategoryThumb }}" alt="{{ cat.strCategory }}" loading="lazy">
+            <h3>{{ cat.strCategory }}</h3>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Tentang ResepKita{% endblock %}
+
+{% block content %}
+<section class="container section about-page">
+    <nav class="breadcrumb">
+        <a href="{{ url_for('index') }}">Beranda</a> /
+        <strong>Tentang</strong>
+    </nav>
+
+    <h1 class="page-title">Tentang {{ site_name }}</h1>
+
+    <div class="about-card">
+        <h2>🎯 Tema Website</h2>
+        <p>
+            <strong>{{ site_name }}</strong> adalah platform penjelajah resep masakan
+            dari seluruh dunia. Pengguna dapat menemukan resep dari berbagai kategori
+            (Seafood, Vegetarian, Dessert, dll) maupun negara asal (Italia, Jepang,
+            Indonesia, Meksiko, dll), serta melihat panduan memasak lengkap beserta
+            video tutorial untuk setiap resep.
+        </p>
+    </div>
+
+    <div class="about-card">
+        <h2>💡 Insight & Manfaat</h2>
+        <p>
+            Website ini memberikan beberapa manfaat bagi pengguna:
+        </p>
+        <ul>
+            <li>
+                <strong>Eksplorasi kuliner global</strong> — pengguna bisa menemukan resep
+                dari budaya yang belum pernah mereka coba sebelumnya.
+            </li>
+            <li>
+                <strong>Panduan memasak praktis</strong> — setiap resep dilengkapi daftar
+                bahan dengan takaran yang presisi serta instruksi langkah demi langkah.
+            </li>
+            <li>
+                <strong>Pembelajaran visual</strong> — video YouTube terintegrasi membantu
+                pengguna yang lebih nyaman belajar dari demonstrasi visual.
+            </li>
+            <li>
+                <strong>Hemat waktu</strong> — fitur pencarian dan filter mempercepat
+                pengguna menemukan resep yang sesuai dengan bahan yang dimiliki atau
+                preferensi diet.
+            </li>
+        </ul>
+    </div>
+</section>
+{% endblock %}
